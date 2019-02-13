@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const withLessExcludeAntd = require("./next-less.config.js")
 const withTypescript = require("@zeit/next-typescript");
 const Dotenv = require("dotenv-webpack");
 const withLess = require("@zeit/next-less");
@@ -13,7 +13,7 @@ if (typeof require !== "undefined") {
 }
 
 module.exports = withTypescript(
-  withLess({
+  withLessExcludeAntd({
     webpack(config, options) {
       config.plugins = config.plugins || [];
 
@@ -29,7 +29,11 @@ module.exports = withTypescript(
 
       return config;
     },
-    cssModules: false,
+    cssModules: true,
+    cssLoaderOptions: {
+      importLoaders: 1,
+      localIdentName: "[local]___[hash:base64:5]",
+    },
     lessLoaderOptions: {
       javascriptEnabled: true,
       // modifyVars: themeVariables // make your antd custom effective

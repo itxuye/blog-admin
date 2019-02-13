@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Button } from "antd";
+
+import * as style from "./index.less";
 export default () => (
-  <div>
-    <Button>哈哈哈111</Button>
+  <div className={style.button1}>
+    <Button type="primary">Primary</Button>
   </div>
 );
