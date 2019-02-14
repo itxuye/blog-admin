@@ -1,11 +1,25 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": {
+            "browsers": [">0.03%"]
+          },
+          "useBuiltIns": "usage"
+        }
+      }
+    ]
+  ],
   "plugins": [
     [
-      "import", {
+      "import",
+      {
         "libraryName": "antd",
         "style": true
       }
-    ]
+    ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ]
 }
