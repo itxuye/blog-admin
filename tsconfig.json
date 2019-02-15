@@ -9,9 +9,8 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "typeRoots": ["./node_modules/@types"],
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "esnext",
+    "lib": ["dom", "es2015", "es2016", "es2017", "es2018"],
     "baseUrl": ".",
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,6 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "typeRoots": ["typings/*", "node_modules/@types/*"]
   }
 }

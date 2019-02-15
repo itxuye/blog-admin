@@ -1,5 +1,10 @@
 {
-  "extends": ["tslint:recommended"],
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-config-airbnb",
+    "tslint-config-prettier"
+  ],
   "rules": {
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,

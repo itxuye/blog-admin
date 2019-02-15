@@ -20,7 +20,7 @@ interface IAppProps {
   router: any;
 }
 
-@withGA('UA-108866514-2', Router)
+@withGA('UA-134609027-1', Router)
 class App extends app<IAppProps> {
   public render() {
     const { Component, pageProps, apolloClient } = this.props;
