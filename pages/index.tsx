@@ -6,14 +6,12 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import redirect from '../apollo/redirect';
 import checkLoggedIn from '../apollo/checkLoggedIn';
-
 export default class Index extends React.Component<any> {
   static async getInitialProps(context: NextContext & IApolloContext) {
     const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-    console.log(context.apolloClient.link);
     if (!loggedInUser.user) {
       // If not signed in, send them somewhere more useful
-      // redirect(context, '/signin');
+      redirect(context, '/login');
     }
 
     return { loggedInUser };
@@ -28,7 +26,7 @@ export default class Index extends React.Component<any> {
     // logged in, so we don't accidentally leave any state around.
     apolloClient.cache.reset().then(() => {
       // Redirect to a more useful page when signed out
-      redirect({} as NextContext, '/signin');
+      redirect({} as NextContext, '/login');
     });
   };
 

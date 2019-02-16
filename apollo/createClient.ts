@@ -7,7 +7,7 @@ import apolloLogger from 'apollo-link-logger';
 
 import cache from './createCache';
 const isDev = process.env.NODE_ENV === 'development';
-
+const isBrowser: boolean = typeof window !== 'undefined';
 const create = (initialState: any, { getToken }: any) => {
   const link = from([
     // Create Error linking
@@ -45,7 +45,7 @@ const create = (initialState: any, { getToken }: any) => {
     connectToDevTools: isDev,
     link: authLink.concat(link),
     queryDeduplication: true,
-    ssrMode: isDev // Disables forceFetch on the server (so queries are only run once)
+    ssrMode: !isBrowser // Disables forceFetch on the server (so queries are only run once)
   });
 };
 

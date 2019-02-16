@@ -251,6 +251,8 @@
     "align": false,
 
     // 允许使用 namespace
-    "no-namespace": false
+    "no-namespace": false,
+    "import-name": false,
+    "no-implicit-dependencies": false,
   }
 }
