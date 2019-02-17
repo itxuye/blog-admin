@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cookie from 'cookie';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { ApolloConsumer } from 'react-apollo';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -8,18 +8,27 @@ import { ApolloClient } from 'apollo-client';
 import Router from 'next/router';
 
 import login from '../../apollo/login';
-interface LoginFormProps extends FormComponentProps {
+interface ILoginFormProps extends FormComponentProps {
   // username: string;
   // password: string;
   apolloClient?: ApolloClient<NormalizedCacheObject>;
 }
+interface ILoginFormState {
+  loading: boolean;
+}
 import * as styles from './index.less';
 
-class Login extends React.Component<LoginFormProps, any> {
+class Login extends React.Component<ILoginFormProps, ILoginFormState> {
+  public state = {
+    loading: false
+  };
   public handleSubmit = (
     e: React.SyntheticEvent,
     apolloClient: ApolloClient<NormalizedCacheObject>
   ) => {
+    this.setState({
+      loading: true
+    });
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
@@ -38,16 +47,20 @@ class Login extends React.Component<LoginFormProps, any> {
           });
         }
       }
+      this.setState({
+        loading: false
+      });
     });
   };
   public render() {
     const { getFieldDecorator } = this.props.form;
+    const { loading } = this.state;
     return (
       <ApolloConsumer>
         {client => (
           <Form
             onSubmit={(e: React.SyntheticEvent) => this.handleSubmit(e, client)}
-            className={styles['login-form']}
+            className={styles['form']}
           >
             <Form.Item>
               {getFieldDecorator('username', {
@@ -78,15 +91,11 @@ class Login extends React.Component<LoginFormProps, any> {
                 />
               )}
             </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Log in
+            <Row>
+              <Button type="primary" htmlType="submit" loading={loading}>
+                Sign in
               </Button>
-            </Form.Item>
+            </Row>
           </Form>
         )}
       </ApolloConsumer>
