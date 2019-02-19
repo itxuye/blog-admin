@@ -13,3 +13,10 @@ declare interface IApolloContext {
 declare interface IAppContext {
   ctx: NextContext & IApolloContext;
 }
+
+/**
+ * A React.FunctionComponent with getInitialProps
+ */
+declare interface StatelessPage<P = {}> extends React.FunctionComponent<P> {
+  getInitialProps?: (ctx: NextContext & IApolloContextany) => Promise<P>;
+}

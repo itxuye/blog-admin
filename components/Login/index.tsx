@@ -1,29 +1,23 @@
 import * as React from 'react';
 import cookie from 'cookie';
 import { Form, Icon, Input, Button, Row } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
 import { ApolloConsumer } from 'react-apollo';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import Router from 'next/router';
 
 import login from '../../apollo/login';
-interface ILoginFormProps extends FormComponentProps {
-  // username: string;
-  // password: string;
-  apolloClient?: ApolloClient<NormalizedCacheObject>;
-}
-interface ILoginFormState {
-  loading: boolean;
-}
+import { ILoginFormProps, ILoginFormState } from './index.interface';
+
 import * as styles from './index.less';
 
 class Login extends React.Component<ILoginFormProps, ILoginFormState> {
   public state = {
     loading: false
   };
+
   public handleSubmit = (
-    e: React.SyntheticEvent,
+    e: React.MouseEvent,
     apolloClient: ApolloClient<NormalizedCacheObject>
   ) => {
     this.setState({
@@ -34,7 +28,6 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
       if (!err) {
         const { tokenData } = await login(apolloClient!, values);
         if (tokenData.login.accessToken) {
-          localStorage.setItem('TOKEN', tokenData.login.accessToken);
           document.cookie = cookie.serialize(
             'token',
             tokenData.login.accessToken,
@@ -59,7 +52,7 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
       <ApolloConsumer>
         {client => (
           <Form
-            onSubmit={(e: React.SyntheticEvent) => this.handleSubmit(e, client)}
+            onSubmit={(e: React.MouseEvent) => this.handleSubmit(e, client)}
             className={styles['form']}
           >
             <Form.Item>
