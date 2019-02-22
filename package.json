@@ -4,7 +4,7 @@
   "description": "itxuye-blog-front",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development next -- -p 3004",
+    "start:dev": "cross-env NODE_ENV=development next -- -p 3004",
     "start:prod": "cross-env NODE_ENV=production next",
     "start": "next start -p $PORT",
     "build": "cross-env NODE_ENV=production next build && PORT=3005 npm start",
