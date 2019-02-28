@@ -26,8 +26,8 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        const { tokenData } = await login(apolloClient!, values);
-        if (tokenData.login.accessToken) {
+        const { tokenData } = await login(apolloClient, values);
+        if (tokenData.login && tokenData.login.accessToken) {
           document.cookie = cookie.serialize(
             'token',
             tokenData.login.accessToken,

@@ -4,7 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 import apolloLogger from 'apollo-link-logger';
-
+import { notification } from 'antd';
 import cache from './createCache';
 const isDev = process.env.NODE_ENV === 'development';
 const isBrowser: boolean = typeof window !== 'undefined';
@@ -13,12 +13,19 @@ const create = (initialState: any, { getToken }: any) => {
     // Create Error linking
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        graphQLErrors.map((/* { message, locations, path } */) => {
-          // Placeholder
+        graphQLErrors.map(({ message, path }) => {
+          notification.error({
+            message: path.join(','),
+            description: message
+          });
         });
       }
       if (networkError) {
         // Placeholder console.warn(`[Network error]: ${networkError}`);
+        notification.error({
+          message: '网络错误',
+          description: networkError
+        });
       }
     }),
     // Log queries to console
