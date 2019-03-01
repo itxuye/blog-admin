@@ -1,12 +1,28 @@
-import React from 'react';
+import * as React from 'react';
+import { Layout } from 'antd';
 import cookie from 'cookie';
 import { ApolloConsumer } from 'react-apollo';
 import { NextContext } from 'next';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+
 import redirect from '../apollo/redirect';
 import checkLoggedIn from '../apollo/checkLoggedIn';
-export default class Index extends React.Component<any> {
+
+import Header from '../components/Layouts/header';
+import Menu from '../components/Layouts/menu';
+
+const { Content } = Layout;
+interface IindexState {
+  collapsed: boolean;
+}
+export default class Index extends React.Component<any, IindexState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      collapsed: false
+    };
+  }
   static async getInitialProps(context: NextContext & IApolloContext) {
     const { loggedInUser } = await checkLoggedIn(context.apolloClient);
     if (!loggedInUser.user) {
@@ -30,14 +46,36 @@ export default class Index extends React.Component<any> {
     });
   };
 
-  render() {
+  toogleCollapsed = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  };
+
+  public render() {
+    const { collapsed } = this.state;
     return (
       <ApolloConsumer>
         {client => (
-          <div>
-            {/* Hello {this.props.loggedInUser.user.name}!<br /> */}
-            <button onClick={this.signout(client)}>Sign out</button>
-          </div>
+          <Layout>
+            <Menu collapsed={collapsed} />
+            <Layout>
+              <Header
+                collapsed={collapsed}
+                toogleCollapsed={() => this.toogleCollapsed}
+              />
+              <Content
+                style={{
+                  margin: '24px 16px',
+                  padding: 24,
+                  background: '#fff',
+                  minHeight: '100%'
+                }}
+              >
+                Content
+              </Content>
+            </Layout>
+          </Layout>
         )}
       </ApolloConsumer>
     );

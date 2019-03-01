@@ -6,8 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import apolloLogger from 'apollo-link-logger';
 import { notification } from 'antd';
 import cache from './createCache';
-const isDev = process.env.NODE_ENV === 'development';
-const isBrowser: boolean = typeof window !== 'undefined';
+import common from './../util/common';
 const create = (initialState: any, { getToken }: any) => {
   const link = from([
     // Create Error linking
@@ -29,7 +28,7 @@ const create = (initialState: any, { getToken }: any) => {
       }
     }),
     // Log queries to console
-    ...(isDev ? [apolloLogger] : []),
+    ...(!common.NODE && common.DEV ? [apolloLogger] : []),
 
     new HttpLink({
       credentials: 'same-origin',
@@ -49,10 +48,10 @@ const create = (initialState: any, { getToken }: any) => {
 
   return new ApolloClient({
     cache: cache.restore(initialState || {}),
-    connectToDevTools: isDev,
+    connectToDevTools: common.DEV,
     link: authLink.concat(link),
     queryDeduplication: true,
-    ssrMode: !isBrowser // Disables forceFetch on the server (so queries are only run once)
+    ssrMode: Boolean(common.NODE) // Disables forceFetch on the server (so queries are only run once)
   });
 };
 

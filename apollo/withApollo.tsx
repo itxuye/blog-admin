@@ -8,7 +8,7 @@ import Head from 'next/head';
 
 import parseCookies from '../util/parseCookies';
 import initApollo from './initApollo';
-const isBrowser: boolean = typeof window !== 'undefined';
+import common from './../util/common';
 export default (App: any) => {
   App.displayName = 'ixuye App';
   return class WithData extends React.Component {
@@ -46,7 +46,7 @@ export default (App: any) => {
         return {};
       }
 
-      if (!isBrowser) {
+      if (common.NODE) {
         try {
           await getDataFromTree(
             <App

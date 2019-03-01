@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { Layout, Icon } from 'antd';
 
-const { useState } = React;
 const { Header } = Layout;
 
-const HeaderSFC = () => {
-  const [collapsed, toogleCollapsed] = useState(false);
+import * as styles from './index.less';
+interface IheaderProps {
+  collapsed: boolean;
+  toogleCollapsed: (collapsed: boolean) => void;
+}
+
+const HeaderSFC: React.SFC<IheaderProps> = ({ collapsed, toogleCollapsed }) => {
 
   return (
-    <Header style={{ background: '#fff', padding: 0 }}>
+    <Header className={styles.header}>
       <Icon
         className="trigger"
         type={collapsed ? 'menu-unfold' : 'menu-fold'}
-        onClick={() => toogleCollapsed(!collapsed)}
+        onClick={()=>toogleCollapsed}
       />
     </Header>
   );
