@@ -32,7 +32,7 @@ const create = (initialState: any, { getToken }: any) => {
         if (isBrowser) {
           notification.error({
             message: '网络错误',
-            description: networkError
+            description: networkError.toString()
           });
         } else {
           console.warn(`[Network error]: ${networkError}`);
