@@ -6,9 +6,9 @@ import { getDataFromTree } from 'react-apollo';
 import { NextAppContext } from 'next/app';
 import Head from 'next/head';
 
-import parseCookies from '../util/parseCookies';
+import parseCookies from '@utils/parseCookies';
 import initApollo from './initApollo';
-import common from './../util/common';
+import common from '@utils/common';
 export default (App: any) => {
   App.displayName = 'ixuye App';
   return class WithData extends React.Component {

@@ -8,7 +8,7 @@ import Router from 'next/router';
 import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import withApollo from '../apollo/withApollo';
+import withApollo from '@apollo/withApollo';
 
 interface IAppProps {
   Component: any;

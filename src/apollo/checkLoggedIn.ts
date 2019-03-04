@@ -1,7 +1,7 @@
 import { NormalizedCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 
-import CHECK_LOGGED_IN from '../graphql/queries/user/CheckLoggedIn';
+import CHECK_LOGGED_IN from '@graphql/queries/user/CheckLoggedIn';
 
 export default (apolloClient: ApolloClient<NormalizedCache>) =>
   apolloClient

@@ -11,7 +11,7 @@ interface ImenuProps {
 
 const MenuSFC: React.SFC<ImenuProps> = ({ collapsed }) => {
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Sider className={styles.sider} trigger={null} collapsible collapsed={collapsed}>
       <div className={styles.log} />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">

@@ -4,10 +4,10 @@
   "description": "itxuye-blog-front",
   "main": "index.js",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development next -- -p 3004",
-    "start:prod": "cross-env NODE_ENV=production next",
+    "start:dev": "cross-env NODE_ENV=development next src -- -p 3004",
+    "start:prod": "cross-env NODE_ENV=production next src",
     "start": "next start -p $PORT",
-    "build": "cross-env NODE_ENV=production next build && PORT=3005 npm start",
+    "build": "cross-env NODE_ENV=production next build src && PORT=3005 npm start",
     "deploy": "pm2 start npm --name 'blog-admin-next' -- run build --watch"
   },
   "repository": {
@@ -64,6 +64,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "babel-plugin-import": "^1.11.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "cross-env": "^5.2.0",
     "dotenv-webpack": "^1.7.0",

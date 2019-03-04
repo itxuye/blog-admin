@@ -14,6 +14,19 @@
     ["@zeit/next-typescript/babel"]
   ],
   "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@apollo":"./src/apollo",
+        "@utils":"./src/utils",
+        "@graphql":"./src/graphql",
+        "@components": "./src/components/",
+        "@styles": "./src/styles/",
+        "src": "./src/",
+        "dva-utils": "./src/utils/",
+        "dva": "dva-no-router"
+      }
+    }],
     [
       "import",
       {

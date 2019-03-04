@@ -6,7 +6,7 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import Router from 'next/router';
 
-import login from '../../apollo/login';
+import login from '@apollo/login';
 import { ILoginFormProps, ILoginFormState } from './index.interface';
 
 import * as styles from './index.less';

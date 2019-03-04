@@ -1,7 +1,7 @@
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 
-import LOGIN from '../graphql/queries/user/login';
+import LOGIN from '@graphql/queries/user/login';
 
 export default (apolloClient: ApolloClient<NormalizedCacheObject>,variables:any) =>
   apolloClient
