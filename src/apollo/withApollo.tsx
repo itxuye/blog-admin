@@ -10,7 +10,7 @@ import parseCookies from '@utils/parseCookies';
 import initApollo from './initApollo';
 import common from '@utils/common';
 export default (App: any) => {
-  App.displayName = 'ixuye App';
+  App.displayName = 'itxuye App';
   return class WithData extends React.Component {
     public static displayName = `WithData(${App.displayName})`;
 
@@ -24,11 +24,11 @@ export default (App: any) => {
         router,
         ctx: { req, res }
       } = ctx;
-
+      const token = parseCookies(req).token;
       const apollo: any = initApollo(
         {},
         {
-          getToken: () => parseCookies(req).token
+          getToken: () => token
         }
       );
 
