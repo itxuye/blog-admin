@@ -3,7 +3,7 @@ import redirect from '@apollo/redirect';
 import checkLoggedIn from '@apollo/checkLoggedIn';
 import { NextContext } from 'next';
 
-const LoginPage: StatelessPage = () => {
+const LoginPage: FunctionPage = () => {
   return <Login />;
 };
 

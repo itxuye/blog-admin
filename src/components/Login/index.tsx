@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cookie from 'cookie';
-import { Form, Icon, Input, Button, Row } from 'antd';
+import { Form, Icon, Input, Button, Row, notification } from 'antd';
 import { ApolloConsumer } from 'react-apollo';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -27,6 +27,7 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         const { tokenData } = await login(apolloClient, values);
+
         if (tokenData.login && tokenData.login.accessToken) {
           document.cookie = cookie.serialize(
             'token',
@@ -37,6 +38,10 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
           );
           apolloClient.cache.reset().then(() => {
             Router.replace('/');
+          });
+        } else {
+          notification.error({
+            message: 'Token返回失败'
           });
         }
       }

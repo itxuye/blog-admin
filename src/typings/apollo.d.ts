@@ -17,6 +17,6 @@ declare interface IAppContext {
 /**
  * A React.FunctionComponent with getInitialProps
  */
-declare interface StatelessPage<P = {}> extends React.SFC<P> {
+declare interface FunctionPage<P = {}> extends React.FunctionComponent<P> {
   getInitialProps?: (ctx: NextContext & IApolloContextany) => Promise<P>;
 }

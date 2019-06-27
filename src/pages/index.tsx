@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Layout } from 'antd';
+import { Layout, notification } from 'antd';
 import cookie from 'cookie';
 import { ApolloConsumer } from 'react-apollo';
 import { NextContext } from 'next';
@@ -14,16 +14,21 @@ import Menu from '@components/Layouts/menu';
 
 const { Content } = Layout;
 
-const Index: StatelessPage<{}> = () => {
+const Index: FunctionPage<{}> = () => {
   const [collapsed, toogleCollapsed] = React.useState(false);
   const signout = (apolloClient: ApolloClient<NormalizedCacheObject>) => {
     document.cookie = cookie.serialize('token', '', {
       maxAge: -1 // Expire the cookie immediately
     });
-    apolloClient.cache.reset().then(() => {
-      // Redirect to a more useful page when signed out
-      redirect({} as NextContext, '/login');
-    });
+    apolloClient.cache
+      .reset()
+      .then(() => {
+        // Redirect to a more useful page when signed out
+        redirect({} as NextContext, '/login');
+      })
+      .catch(() => {
+        notification.error({ message: '退出失败' });
+      });
   };
 
   return (
