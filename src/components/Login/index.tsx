@@ -39,10 +39,6 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
           apolloClient.cache.reset().then(() => {
             Router.replace('/');
           });
-        } else {
-          notification.error({
-            message: 'Token返回失败'
-          });
         }
       }
       this.setState({
@@ -56,10 +52,7 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
     return (
       <ApolloConsumer>
         {client => (
-          <Form
-            onSubmit={(e: React.MouseEvent) => this.handleSubmit(e, client)}
-            className={styles['form']}
-          >
+          <Form className={styles['form']}>
             <Form.Item>
               {getFieldDecorator('username', {
                 rules: [
@@ -90,7 +83,12 @@ class Login extends React.Component<ILoginFormProps, ILoginFormState> {
               )}
             </Form.Item>
             <Row>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                onClick={e => this.handleSubmit(e, client)}
+              >
                 Sign in
               </Button>
             </Row>
